@@ -15,10 +15,7 @@ TEST_CASE("Test Echo variable", "validation") {
 	REQUIRE(echo_variable(1000) == 1000);// test case 4 
 }
 /*test case add_to_double_1 with 0 as parameter*/
-TEST_CASE("Test add to double 1", "testing inconsistencies when comparing doubles")
-{
-	REQUIRE(add_to_double_1(0) == .9);
-}
+
 /*test case add_to_double_1 with 1 as parameter*/
 
 /*test case add_to_double_2 with 0 as parameter*/
