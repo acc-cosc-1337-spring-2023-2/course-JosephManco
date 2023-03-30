@@ -2,42 +2,48 @@
 
 int main() 
 {
+	bool playAgain = true;
 	string first_player;
-	cout << "Enter the first player (X or O): ";
-	cin >> first_player;
+	char again;
 
-	TicTacToe game;
-	game.start_game(first_player);
-
-	bool play_again = true;
-	while(play_again)
+	while(playAgain)
 	{
+		TicTacToe game;
+
+		cout << "Enter the first player (X or O): ";
+		cin >> first_player;
+
+		while (first_player != "X" && first_player != "O")
+		{
+			cout << "Invalid input. Enter X or O: ";
+			cin >> first_player; 
+		}
+		game.start_game(first_player);
+
+		int position;
 		while (!game.game_over())
 		{
-			game.display_board();
-
-			int position;
-			cout << "Enter a position (1-9): ";
+			cout << "Player " << game.get_player() << " enter a position (1-9): ";
 			cin >> position;
 
+			while(position < 1 || position > 9 || game.get_pegs()[position - 1] != " ")
+				{
+					cout << "Invalid input or position already taken. Enter a position";
+					cin >> position;
+				}
 			game.mark_board(position);
+			game.display_board();
 		}
-		game.display_board();
-		cout << "Game over!\n";
+		
+		cout << "Winner: " << game.get_winner() << "\n";
 
-		char choice;
 		cout << "Play again? (y/n): ";
-		cin >> choice;
+		cin >> again;
 
-		if (choice != 'y' && choice != 'Y')
+		if (again != 'y' && again != 'Y')
 		{
-			play_again = false;
-		}
-		else
-		{
-			game.start_game(game.get_player() == "X" ? "O" : "X");
+			playAgain = false;
 		}
 	}
-
 	return 0;
 }
