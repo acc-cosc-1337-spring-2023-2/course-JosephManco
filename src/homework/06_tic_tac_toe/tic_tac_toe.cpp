@@ -1,6 +1,11 @@
 //cpp
 #include "tic_tac_toe.h"
 
+TicTacToe::TicTacToe(int size) : pegs(size * size, " ")
+{
+
+}
+
 bool TicTacToe::game_over()
 {
     if (check_row_win() || check_column_win() || check_diagonal_win())
@@ -45,60 +50,20 @@ vector<string>TicTacToe::get_pegs()const
     return pegs;
 }
 
+
 bool TicTacToe::check_column_win()
 {
-    if (pegs[0] != " " && pegs[0] == pegs[3] && pegs[3] == pegs[6])
-    {
-        return true;
-    } 
-    else if (pegs[1] != " " && pegs[1] == pegs[4] && pegs[4] == pegs[7])
-    {
-        return true;
-    }
-    else if (pegs[2] != " " && pegs[2] == pegs[5] && pegs[5] == pegs[8])
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 bool TicTacToe::check_row_win()
 {
-    if (pegs[0] != " " && pegs[0] == pegs[1] && pegs[1] == pegs[2])
-    {
-        return true;
-    } 
-    else if (pegs[3] != " " && pegs[3] == pegs[4] && pegs[4] == pegs[5])
-    {
-        return true;
-    }
-    else if (pegs[6] != " " && pegs[6] == pegs[7] && pegs[7] == pegs[8])
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+     return false;
 }
 
 bool TicTacToe::check_diagonal_win()
 {
-    if (pegs[0]!= " " && pegs[0] == pegs[4] && pegs[4] == pegs[8])
-    {
-        return true;
-    }
-    else if(pegs[2] != " " && pegs[2] == pegs[4] && pegs[4] == pegs[6])
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 void TicTacToe::set_winner()
@@ -141,9 +106,19 @@ void TicTacToe::clear_board()
 ostream& operator<<(ostream& out, const TicTacToe& game)
 {
     out << "Board: \n";
-    for(int i = 0; i < 9; i += 3)
+    if(game.pegs.size() == 9)
     {
-        out << game.pegs[i] << "|" << game.pegs[i+1] << "|" << game.pegs[i+2] << "\n";
+        for(int i = 0; i < 3; i++)
+        {
+        out << game.pegs[i*3] << "|" << game.pegs[i*3+1] << "|" << game.pegs[i*3+2] << "\n";
+        }
+    }
+    else if(game.pegs.size() == 16)
+    {
+        for(int i=0; i<4; i++)
+        {
+            out << game.pegs[i*4] << "|" << game.pegs[i*4+1] << "|" << game.pegs[i*4+2] << "|" << game.pegs[i*4+3] << "\n";
+        }
     }
     out << "\n";
     return out;
@@ -152,12 +127,12 @@ ostream& operator<<(ostream& out, const TicTacToe& game)
 istream& operator>>(istream& in, TicTacToe& game)
 {
     int position;
+    int max_position = game.pegs.size();
     do
     {
-        cout << " Enter position(1-9)): ";
+        cout << " Enter position(1-" << max_position << "): ";
         in>> position;
-    } while (position < 1 || position > 9);
+    } while (position < 1 || position > max_position);
     game.mark_board(position);
     return in;
-    
 }
