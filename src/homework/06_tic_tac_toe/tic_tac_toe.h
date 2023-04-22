@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <fstream>
 
 using std::cout; using std::cin; using std::string; using std::vector; using std::istream; using std::ostream;using std::unique_ptr; using std::make_unique;
 
@@ -12,6 +13,7 @@ class TicTacToe
     public:
         TicTacToe() = default;
         TicTacToe(int size);
+        TicTacToe(vector<string> p, string win);
         bool game_over();
         void start_game(string first_player);
         void mark_board(int position);

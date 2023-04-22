@@ -6,6 +6,11 @@ TicTacToe::TicTacToe(int size) : pegs(size * size, " ")
 
 }
 
+TicTacToe::TicTacToe(vector<string> p, string win) : pegs{p}, winner{win}
+{
+
+}
+
 bool TicTacToe::game_over()
 {
     if (check_row_win() || check_column_win() || check_diagonal_win())

@@ -2,17 +2,18 @@
 #include "tic_tac_toe_manager.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
+#include "tic_tac_toe_data.h"
 #include <iostream>
 #include <memory>
 
 int main() 
 {
+	TicTacToeData data;
+	TicTacToeManager manager(data);
 	bool playAgain = true;
 	string first_player;
 	char again;
 	int board_size;
-
-	TicTacToeManager manager;
 
 	while(playAgain)
 	{
@@ -64,10 +65,7 @@ int main()
 		}
 	}
 
-	int x_win, o_win, ties;
-	manager.get_winner_total(x_win, o_win, ties);
-	cout << "X wins: " << x_win << "\nO wins: " << o_win << "\nTies: " << ties <<"\n";
-
+	manager.display_history();
 	cout << manager;
 
 	return 0;
